@@ -1,0 +1,20 @@
+void select(int a[],int size)
+{
+    int i = 0;
+    int j = 0;
+    for(i = 0,i < size - 1; i++)
+    {
+        int k = i;
+        for(j = i + 1; j < size; j++)
+        {
+            if(A[j] < A[k])
+            {
+                k = j;
+            }
+        }
+    int temp = A[i];
+    A[i] = A[k];
+    A[k] = temp;
+    }
+}
+//从1-n中选出最小，与第一个交换位置，往复进行

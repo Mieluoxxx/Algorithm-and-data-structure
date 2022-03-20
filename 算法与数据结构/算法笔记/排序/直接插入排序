@@ -1,0 +1,24 @@
+void insertSort(int a[], int size)
+{
+    int i = 0, j = 0, k = 0;
+    int temp = 0;
+    for(i = 1; i < size; ++i)
+    {
+        //a[i]是最左边的无序元素,每次循环都将a[i]放到合适的地方
+        for(j = 0; j < i; ++j)
+        {
+            if(a[i] > a[j])
+            {
+                //要把a[i]放到位置j,原下标j到i-1的元素都往后移一个位置
+                temp = a[i];
+                for(k = i; k > j; --k)
+                {
+                    a[k] = a[k-1];
+                }
+                a[j] = temp;
+                break;
+            }
+        }
+    }
+
+}
