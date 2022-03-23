@@ -4,7 +4,7 @@
 
 ## DFS原理
 
-老鼠走迷宫  “一路到底、逐步回退(回溯)”
+老鼠走迷宫  “一路到底、逐步回退(**回溯**)”
 
 ## 递归与记忆化
 
@@ -28,7 +28,7 @@ int main(){
 }
 ~~~
 
-### 递归的优化：记忆法(剪枝)
+### 递归的优化：**记忆法(剪枝)**
 
 ~~~cpp
 #include <bits/stdc++.h>
@@ -52,12 +52,76 @@ int main(){
 }
 ~~~
 
-## 自写全排列算法
+## **自写全排列算法（重点）**
+
+~~~cpp
+#include <bits/stdc++.h>
+using namespace std;
+int a[20] = {1,2,3,4,5,6,7,8,9,10,11,12,13};
+bool vis[20];
+int b[20];  //记录一个新的全排列
+
+void dfs(int s, int t){
+    if(s == t){ //递归结束，生成一个全排列
+        for(int i = 0; i < t; ++i)  cout << b[i] << " ";    //输出一个排列
+        cout << endl;   return ;
+    }
+    for(int i = 0; i < t; i++)
+    {
+        if(!vis[i]){
+            vis[i] = true;
+            b[s] = a[i];
+            dfs(s+1,t);
+            vis[i] = false;//回溯恢复
+        }
+    }
+}
+int main()
+{
+    int n = 3;
+    dfs(0,n);//前n个数的全排列
+    return 0;
+}
+~~~
 
 ## 基本DFS代码
 
-## 复杂度分析
+~~~cpp
+#include <bits/stdc++.h>
+using namespace std;
+const int n 10;
+char mp[n+2][n+2];
 
-## 回溯与路径标记
+bool vis[n+2][n+2]; //判断是否走过，具有记忆功能
+int ans = 0;
+int cnt = 0;
+bool dfs(int i, int j)
+{
+    if(i < 0 || i > n-1 || j < 0 || j>n-1)  return true；
+    if(vis[i][j])   return false;   //如果已经搜过了，说明正在兜圈子，走不去。
+    cnt++;  //统计dfs()了多少次
+    vis[i][j] = true;   //标记已搜索
+    if(mp[i][j]=='L')   return dfs(i,j-1);
+    if(mp[i][j]=='R')   return dfs(i,j+1);
+    if(mp[i][j]=='U')   return dfs(i-1,j);
+    if(mp[i][j]=='D')   return dfs(i+1,j);
+}
+int main(){
+    for(int i = 0; i < n; i++)
+        for(int j = 0; j < n; j++)
+            cin >> mp[i][j];    //读取迷宫图
+    for(int i = 0; i < n; i++)  //对每个点，判断是否能走出去
+        for(int j = 0; j < n; j++){
+            memset(vis,0,sizeof(vis));  //搜索每个点前，都清空vis[]
+            if(dfs(i,j))    ans++;  //点vis[][]能走出去，统计答案
+        }
+    cout << "ans=" << ",cnt=" << cnt << endl;
+    return 0;
+}
+~~~
+
+### 复杂度分析
+
+### 回溯与路径标记
 
 ## DFS框架
