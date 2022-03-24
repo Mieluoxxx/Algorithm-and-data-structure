@@ -84,6 +84,8 @@ int main()
 }
 ~~~
 
+O(n^4)需要优化
+
 ## 基本DFS代码
 
 ~~~cpp
@@ -98,13 +100,31 @@ int cnt = 0;
 bool dfs(int i, int j)
 {
     if(i < 0 || i > n-1 || j < 0 || j>n-1)  return true；
-    if(vis[i][j])   return false;   //如果已经搜过了，说明正在兜圈子，走不去。
+    if(solve[i][j] == 1)  return true;    //如果已经搜过了，说明正在兜圈子，走不去。
+    if(solve[i][j] == 2)  return false    //已经算过了
+    if(vis[i][j])   return false;
     cnt++;  //统计dfs()了多少次
     vis[i][j] = true;   //标记已搜索
-    if(mp[i][j]=='L')   return dfs(i,j-1);
-    if(mp[i][j]=='R')   return dfs(i,j+1);
-    if(mp[i][j]=='U')   return dfs(i-1,j);
-    if(mp[i][j]=='D')   return dfs(i+1,j);
+    if(mp[i][j]=='L')
+    {
+        if(dfs(i,j-1)){solve[i][j] = 1; return true;}
+        else    {solve[i][j] = 2;   return false;}
+    }
+    if(mp[i][j]=='R')
+    {
+        if(dfs(i,j-1)){solve[i][j] = 1; return true;}
+        else    {solve[i][j] = 2;   return false;}
+    }
+    if(mp[i][j]=='U')    
+    {
+        if(dfs(i,j-1)){solve[i][j] = 1; return true;}
+        else    {solve[i][j] = 2;   return false;}
+    }
+    if(mp[i][j]=='D')    
+    {
+        if(dfs(i,j-1)){solve[i][j] = 1; return true;}
+        else    {solve[i][j] = 2;   return false;}
+    }
 }
 int main(){
     for(int i = 0; i < n; i++)
@@ -122,14 +142,33 @@ int main(){
 
 ### 复杂度分析
 
-O(n^4)需要优化
+O(n^2)需要优化
 
 ### 回溯与路径标记
+
 用不着对每一个点做一次dfs()
 走同一条路径上所有点都能走出迷宫
 
 如何标记一条DFS路径？   --回溯
 
-~~~cpp
-~~~
 ## DFS框架
+
+~~~cpp
+ans;
+void dfs(层数，其他参数)
+{
+    if(出局判断)
+    {
+        更新答案;
+        return ;
+    }
+    (剪枝)
+    for(枚举下一层可能的情况)
+        if(used[i] == 0){
+            used[i] = 1;
+            def(层数+1,其他参数);
+            used[i] = 0;
+        }
+    return ;
+}
+~~~
