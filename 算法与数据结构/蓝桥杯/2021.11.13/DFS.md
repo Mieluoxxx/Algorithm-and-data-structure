@@ -13,18 +13,27 @@
 递归例子：f(n) = f(n-1) + f(n-2)
 
 ~~~cpp
-#include <bits/stdc++.h>
+#include <iostream>
+#include <cstdio>
 using namespace std;
-int cnt = 0;
 int fib(int n){
-    int cnt++;
-    if(n==1||n==2)
-        return 1;
-    return fib(n-1) + fib(n-2);
+    int data[25] = {0};
+    if(n<=2)
+    {
+        data[n] = 1;
+        return data[n];    
+    }
+    if(data[n]!=0)  return data[n];
+    data[n] = fib(n-1) + fib(n-2);
+    return data[n];
 }
 int main(){
-    cout << fib(20);
-    cout << " cnt=" << cnt;
+    int n = 0;
+    while(cin >> n)
+    {
+    cout << fib(n) << endl;
+    }
+    return 0;
 }
 ~~~
 
