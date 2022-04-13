@@ -1,8 +1,10 @@
 #include <iostream>
+#include <string>
 using namespace std;
 int main()
 {
-    char a[101],s[101];
+    string a;
+    char s[101];
     int i, len, mid, next, top;
     getline(cin,a); //读入一行字符串
     mid = len/2-1;
@@ -24,6 +26,10 @@ int main()
             break;
         top--;
     }
-    //如果
+    //如果top的值为0，泽说明站内所有的字符都被一一匹配了
+    if(top==0)
+        printf("YES");
+    else
+        printf("NO");
     return 0;
 }
