@@ -17,7 +17,7 @@ int main()
         }
     }
     maxSum = a[n];//maxSum指向第n行
-    for(i = n-1; i >= 0; --i)
+    for(i = n-1; i >= 1; --i)
     {
         for(j = 1; j <= i; ++j)
         {
